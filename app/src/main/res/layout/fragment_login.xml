@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height = "match_parent">
+
+    <TextView
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/app_name"
+        android:id = "@+id/appText"
+        android:layout_centerHorizontal = "true"
+        android:textColor = "#ff7aff24"
+        android:textSize = "35dp"
+        android:layout_marginTop = "150dp" />
+
+
+    <TextView
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/username_text"
+        android:id = "@+id/usernameText"
+        android:layout_centerHorizontal = "true"
+        android:layout_below = "@+id/appText"
+        android:textColor = "#ff7aff24"
+        android:textSize = "16dp"
+        android:layout_marginTop = "90dp" />
+    <EditText
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/usernameField"
+        android:hint = "Username"
+        android:focusable = "true"
+        android:textColorHighlight = "#ff7eff15"
+        android:textColorHint = "#ffff25e6"
+        android:layout_below = "@+id/usernameText"
+        android:layout_centerHorizontal = "true" />
+
+    <TextView
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "@string/username_text"
+        android:id = "@+id/passwordText"
+        android:layout_centerHorizontal = "true"
+        android:textColor = "#ff7aff24"
+        android:layout_below = "@+id/usernameField"
+        android:textSize = "16dp"
+        android:layout_marginTop = "40dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordField"
+        android:layout_below="@+id/passwordText"
+        android:layout_centerHorizontal = "true"
+        android:textColorHint="#ffff299f"
+        android:hint="Password" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_text"
+        android:id="@+id/loginButton"
+        android:layout_marginTop = "40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/passwordField"
+        />
+
+
+</RelativeLayout>

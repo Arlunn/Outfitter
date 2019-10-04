@@ -1,6 +1,7 @@
 package com.example.outfitter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         mLoginButton = (Button) findViewById(R.id.loginButton);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -36,5 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         });
+
     }
 }
