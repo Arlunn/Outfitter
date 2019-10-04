@@ -28,19 +28,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mLoginButton = (Button) findViewById(R.id.loginButton);
 
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                Intent intent = new Intent(this, ProfileActivity.class);
-                EditText username = (EditText) findViewById(R.id.usernameField);
-                String message = username.getText().toString();
-                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
-                */
-            }
-        });
 
+
+    }
+
+    public void sendMessage(View view)
+    {
+        Log.e("asdf","you fucked up");
+        Intent intent = new Intent(this, MainActivity.class);
+        //EditText username = (EditText) findViewById(R.id.usernameField);
+        //String message = username.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
     @Override

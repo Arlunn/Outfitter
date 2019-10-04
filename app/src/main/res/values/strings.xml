@@ -3,4 +3,7 @@
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
     <string name="login_text">Login</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_post">Post</string>
+    <string name="title_profile">Profile</string>
 </resources>
