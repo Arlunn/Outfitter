@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "593376341481",
+    "firebase_url": "https://outfitter-75740.firebaseio.com",
+    "project_id": "outfitter-75740",
+    "storage_bucket": "outfitter-75740.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593376341481:android:450519435d0a821331ef78",
+        "android_client_info": {
+          "package_name": "com.example.outfitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593376341481-phv8locbeo3fd4m5a75fes118udj6orb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZj7tBY6TENI4gT0bzD5FMsxOS-1HtTRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593376341481-phv8locbeo3fd4m5a75fes118udj6orb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
