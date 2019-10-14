@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendMessage(View view)
     {
-        Log.e("asdf","you fucked up");
+        Log.e("LoginActivity","sendMessage");
         Intent intent = new Intent(this, MainActivity.class);
         //EditText username = (EditText) findViewById(R.id.usernameField);
         //String message = username.getText().toString();
