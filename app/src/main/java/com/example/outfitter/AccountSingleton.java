@@ -37,6 +37,16 @@ public class AccountSingleton {
         return sInstance;
     }
 
+    public void deleteUser(String username) {
+        mDatabase.beginTransaction();
+        try {
+            mDatabase.delete(AccountSchema.AccountsTable.DATABASENAME, AccountSchema.AccountsTable.Columns.USERNAME + "=?" , new String[]{username});
+            mDatabase.setTransactionSuccessful();
+        } finally {
+            mDatabase.endTransaction();
+        }
+    }
+
     private static ContentValues getContentValues(Account account) {
         ContentValues values = new ContentValues();
         values.put(AccountSchema.AccountsTable.Columns.USERNAME, account.getUsername());

@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -31,7 +28,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private FragmentManager fm;
     private AccountSingleton mDbInstance;
     private AccountDatabaseHelper mHelper;
-    private final static String OPT_NAME = "name";
+    private final static String USERNAME_PREFERENCE = "name";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,7 +94,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 // Save username as the name of the player
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putString(OPT_NAME, username);
+                editor.putString(USERNAME_PREFERENCE, username);
                 editor.apply();
 
                 // Bring up the GameOptions screen

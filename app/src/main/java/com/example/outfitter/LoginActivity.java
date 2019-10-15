@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         loadFragment(new LoginFragment());
     }
 
+
+
     private boolean loadFragment(Fragment fragment){
         if (fragment != null){
             fm.beginTransaction()
