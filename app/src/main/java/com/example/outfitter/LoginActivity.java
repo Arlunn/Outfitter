@@ -1,7 +1,9 @@
 package com.example.outfitter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,37 +11,42 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button mLoginButton;
     public final static String EXTRA_MESSAGE = "outfitter.USERNAME";
 
     //to turn off logging turn verbose false
     private static final boolean VERBOSE = true;
     private static final String TAG = "LoginActivity";
 
+    private FragmentManager fm;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
-        mLoginButton = (Button) findViewById(R.id.loginButton);
+        fm = getSupportFragmentManager();
 
-
-
+        loadFragment(new LoginFragment());
     }
 
-    public void sendMessage(View view)
-    {
-        Log.e("LoginActivity","sendMessage");
-        Intent intent = new Intent(this, MainActivity.class);
-        //EditText username = (EditText) findViewById(R.id.usernameField);
-        //String message = username.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+    private boolean loadFragment(Fragment fragment){
+        if (fragment != null){
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, fragment, LoginFragment.TAG)
+                    .addToBackStack(null)
+                    .commit();
+            return true;
+        }
+
+        return false;
     }
 
     @Override

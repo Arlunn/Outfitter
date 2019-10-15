@@ -26,22 +26,7 @@ public class AccountSingleton {
 
 
     private AccountSingleton(Context context) {
-        SQLiteOpenHelper helper = new SQLiteOpenHelper(context.getApplicationContext(), DATABASE_NAME,null, DATABASE_VERSION) {
-            @Override
-            public void onCreate(SQLiteDatabase sqLiteDatabase) {
-                sqLiteDatabase.execSQL("CREATE TABLE " + AccountSchema.AccountsTable.DATABASENAME + "(" +
-                        "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        AccountSchema.AccountsTable.Columns.USERNAME + " TEXT, " +
-                        AccountSchema.AccountsTable.Columns.PASSWORD + " TEXT" +
-                        ")");
-            }
-
-            @Override
-            public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AccountSchema.AccountsTable.DATABASENAME);
-                onCreate(sqLiteDatabase);
-            }
-        };
+        AccountDatabaseHelper helper = new AccountDatabaseHelper(context.getApplicationContext());
         mDatabase = helper.getWritableDatabase();
     }
 

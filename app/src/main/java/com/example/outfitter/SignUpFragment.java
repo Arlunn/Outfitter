@@ -8,77 +8,78 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
 
 public class SignUpFragment extends Fragment implements View.OnClickListener {
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
-    private AccountSingleton mAccountSingleton;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v;
+        View v = inflater.inflate(R.layout.fragment_signup, container, false);
+
         Activity activity = getActivity();
 
         if (activity != null) {
-            int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
-            if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) {
-                v = inflater.inflate(R.layout.fragment_signup_land, container, false);
-            } else {
-                v = inflater.inflate(R.layout.fragment_login, container, false);
-            }
-        }
-        else {
-            v = inflater.inflate(R.layout.fragment_login, container, false);
-        }
 
-        mUsernameEditText = v.findViewById(R.id.usernameField);
-        mPasswordEditText = v.findViewById(R.id.passwordField);
+            mUsernameEditText = v.findViewById(R.id.usernameField);
+            mPasswordEditText = v.findViewById(R.id.passwordField);
 
-        Button cancelButton = v.findViewById(R.id.cancelButton);
-        if (cancelButton != null) {
+            Button cancelButton = v.findViewById(R.id.cancelButton);
             cancelButton.setOnClickListener(this);
-        }
-        Button createAccountButton = v.findViewById(R.id.createAccountButton);
-        if (createAccountButton != null) {
+            Button createAccountButton = v.findViewById(R.id.createAccountButton);
             createAccountButton.setOnClickListener(this);
+
+            //int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+
         }
+
+
+
 
         return v;
     }
 
     @Override
     public void onClick(View view) {
-        Activity activity = getActivity();
+        FragmentActivity activity = getActivity();
 
         if (activity != null) {
             switch (view.getId()) {
                 case R.id.cancelButton:
-                    activity.finish();
-                    break;
-                case R.id.createAccountButton:
-                    int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-                    FragmentManager fm = getFragmentManager();
-                    Fragment fragment = new LoginFragment();
-                    if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
-                        if (fm != null) {
-                            fm.beginTransaction()
-                                    .replace(R.id.fragment_container, fragment)
-                                    .addToBackStack("account_fragment")
-                                    .commit();
-                        }
-                    } else {
-                        if (fm != null) {
-                            fm.beginTransaction()
-                                    .add(R.id.fragment_container, fragment)
-                                    .addToBackStack("account_fragment")
-                                    .commit();
-                        }
+                    if (activity != null) {
+                        activity.getSupportFragmentManager().popBackStack();
                     }
                     break;
+                case R.id.createAccountButton:
+                    createAccount();
+                    break;
+            }
+        }
+    }
+
+    private void createAccount() {
+        FragmentActivity activity = getActivity();
+        String username = mUsernameEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        if (activity != null) {
+            if (!username.isEmpty() && !password.isEmpty()) {
+                AccountSingleton instance = AccountSingleton.get(activity.getApplicationContext());
+                Account account = new Account(username, password);
+                instance.addAccount(account);
+                Toast.makeText(activity.getApplicationContext(), "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                if (activity != null) {
+                    activity.getSupportFragmentManager().popBackStack();
+                }
+            } else if (username.isEmpty()) {
+                Toast.makeText(activity.getApplicationContext(), "Choose a username", Toast.LENGTH_SHORT).show();
+            } else if (password.isEmpty()) {
+                Toast.makeText(activity.getApplicationContext(), "Choose a password", Toast.LENGTH_SHORT).show();
             }
         }
     }

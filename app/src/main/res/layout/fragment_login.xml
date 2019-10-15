@@ -11,7 +11,7 @@
         android:layout_centerHorizontal = "true"
         android:textColor = "#ff7aff24"
         android:textSize = "35dp"
-        android:layout_marginTop = "120dp" />
+        android:layout_marginTop = "100dp" />
 
 
     <TextView
@@ -64,7 +64,6 @@
         android:layout_below="@+id/passwordField"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:onClick="sendMessage"
         android:text="@string/login" />
 
     <Button
@@ -74,7 +73,6 @@
         android:layout_below="@+id/loginButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:onClick="sendMessage"
         android:text="@string/sign_up" />
 
 
