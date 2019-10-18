@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +27,14 @@ public class AccountSingleton {
 
     private SQLiteDatabase mDatabase;
 
+    private DatabaseReference mDatabaseF;
+
 
     private AccountSingleton(Context context) {
         AccountDatabaseHelper helper = new AccountDatabaseHelper(context.getApplicationContext());
         mDatabase = helper.getWritableDatabase();
+
+        mDatabaseF = FirebaseDatabase.getInstance().getReference();
     }
 
     public static AccountSingleton get(Context context) {
@@ -68,6 +75,8 @@ public class AccountSingleton {
         } finally {
             mDatabase.endTransaction();
         }
+
+
     }
 
     List<Account> getAccounts() {

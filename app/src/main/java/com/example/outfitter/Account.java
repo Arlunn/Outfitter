@@ -4,6 +4,10 @@ public class Account {
     private String mUsername;
     private String mPassword;
 
+    public Account(){
+
+    }
+
     public Account(String username, String password) {
         mUsername = username;
         mPassword = password;
