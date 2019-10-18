@@ -1,6 +1,6 @@
 package com.example.outfitter;
 
-public static class Account {
+public class Account {
     public String username;
     public String password;
 
