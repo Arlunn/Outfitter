@@ -19,6 +19,8 @@ public class AccountSingleton {
     private static final int DATABASE_VERSION = 1;
 
     private static final String INSERT_COMMAND = "INSERT INTO " + AccountSchema.AccountsTable.DATABASENAME + " (username, password) VALUES (?, ?)" ;
+    private static final String UPDATE_COMMAND = "UPDATE " + AccountSchema.AccountsTable.DATABASENAME + " SET password = ? "
+            + "WHERE username = ?";
 
 
     private static AccountSingleton sInstance;
@@ -48,6 +50,21 @@ public class AccountSingleton {
         mDatabase.beginTransaction();
         try {
             mDatabase.delete(AccountSchema.AccountsTable.DATABASENAME, AccountSchema.AccountsTable.Columns.USERNAME + "=?" , new String[]{username});
+            mDatabase.setTransactionSuccessful();
+        } finally {
+            mDatabase.endTransaction();
+        }
+    }
+
+    public void updatePassword(Account account) {
+        ContentValues contentValues = getContentValues(account);
+
+        mDatabase.beginTransaction();
+        try {
+            SQLiteStatement stmt = mDatabase.compileStatement(INSERT_COMMAND);
+            stmt.bindString(1, contentValues.getAsString(AccountSchema.AccountsTable.Columns.USERNAME));
+            stmt.bindString(2, contentValues.getAsString(AccountSchema.AccountsTable.Columns.PASSWORD));
+            stmt.executeUpdateDelete();
             mDatabase.setTransactionSuccessful();
         } finally {
             mDatabase.endTransaction();
