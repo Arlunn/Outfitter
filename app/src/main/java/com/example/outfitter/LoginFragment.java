@@ -82,15 +82,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         if (activity != null) {
             List<Account> accountList = mDbInstance.getAccounts();
-            boolean hasMatchingAccount = false;
+            boolean foundAccount = false;
             for (Account account : accountList) {
                 if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
-                    hasMatchingAccount = true;
+                    foundAccount = true;
                     break;
                 }
             }
 
-            if (accountList.size() > 0 && hasMatchingAccount) {
+            if (accountList.size() > 0 && foundAccount) {
                 // Save username as the name of the player
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                 SharedPreferences.Editor editor = settings.edit();

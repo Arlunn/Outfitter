@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -23,7 +24,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private TextView mUsernameTextView;
 
-    private Button mDeleteAccount;
 
     @Nullable
     @Override
@@ -33,8 +33,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mUsernameTextView = (TextView) v.findViewById(R.id.text_profile);
         mUsernameTextView.setText(username);
 
-        mDeleteAccount = (Button) v.findViewById(R.id.deleteAccountButton);
+        Button mDeleteAccount = (Button) v.findViewById(R.id.deleteAccountButton);
         mDeleteAccount.setOnClickListener(this);
+        Button mUpdtePassword = (Button) v.findViewById(R.id.updatePasswordButton);
+        mUpdtePassword.setOnClickListener(this);
+        Button mSignOut = (Button) v.findViewById(R.id.signOutButton);
+        mSignOut.setOnClickListener(this);
+
+
 
 
         return v;
@@ -55,6 +61,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
                 break;
+            case R.id.updatePasswordButton:
+                ((FragmentChangeInterface) getActivity()).loadFragment(new UpdatePasswordFragment());
+                break;
+            case R.id.signOutButton:
+                settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                editor = settings.edit();
+                editor.remove(USERNAME_PREFERENCE);
+                editor.commit();
+
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+                break;
         }
     }
+
+
 }

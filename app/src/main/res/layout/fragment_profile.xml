@@ -8,16 +8,38 @@
         android:layout_centerHorizontal="true"
         android:text="Profile"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     </TextView>
 
+
     <Button
-        android:id="@+id/deleteAccountButton"
+        android:id="@+id/signOutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_profile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
+        android:text="@string/sign_out" />
+
+
+    <Button
+        android:id="@+id/updatePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signOutButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/update_password" />
+
+
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/updatePasswordButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="@string/delete_account" />
 </RelativeLayout>

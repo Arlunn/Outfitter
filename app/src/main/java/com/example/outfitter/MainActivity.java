@@ -13,7 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, FragmentChangeInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         NavigationUI.setupWithNavController(navView, navController);**/
     }
 
-    private boolean loadFragment(Fragment fragment){
+    @Override
+    public boolean loadFragment(Fragment fragment){
         if (fragment != null){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment).commit();
+                    .replace(R.id.fragment_container, fragment).addToBackStack(fragment.toString()).commit();
             return true;
         }
 
