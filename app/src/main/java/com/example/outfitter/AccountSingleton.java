@@ -25,10 +25,27 @@ public class AccountSingleton {
 
     private DatabaseReference mDatabase;
 
+    List<Account> list = new ArrayList<>();
+
 
     private AccountSingleton(Context context) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    String username= data.child("username").getValue().toString();
+                    String password= data.child("password").getValue().toString();
+                    list.add(new Account(username,password));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static AccountSingleton get(Context context) {
@@ -47,51 +64,10 @@ public class AccountSingleton {
     }
 
     void addAccount(Account account) {
-
-        DatabaseReference user = mDatabase.push();
-
-        String userId = user.getKey();
-        mDatabase.child(userId).child("username").setValue(account.getUsername());
-        mDatabase.child(userId).child("password").setValue(account.getPassword());
-    }
-
-    void accountExists(Account account) {
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                List<Account> list = new ArrayList<>();
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    System.out.println(child.getValue());
-                    String c2 = child.getKey();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //
-            }
-        });
+        mDatabase.child(account.getUsername()).setValue(account);
     }
 
     List<Account> getAccounts() {
-
-        List<Account> list = new ArrayList<>();
-
-        mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                List<Account> list = new ArrayList<>();
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    System.out.println(child.getValue());
-                    String c2 = child.getKey();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //
-            }
-        });
         return list;
     }
 
