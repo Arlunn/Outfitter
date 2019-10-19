@@ -31,7 +31,7 @@ public class AccountSingleton {
     private AccountSingleton(Context context) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-
+        mDatabase.keepSynced(true);
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
