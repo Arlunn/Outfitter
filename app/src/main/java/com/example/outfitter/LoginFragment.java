@@ -27,7 +27,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private Button mSignUpButton;
     private FragmentManager fm;
     private AccountSingleton mDbInstance;
-    private AccountDatabaseHelper mHelper;
     private final static String USERNAME_PREFERENCE = "name";
 
     @Override
@@ -73,13 +72,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 mDbInstance = AccountSingleton.get(activity.getApplicationContext());
             }
         }
-
-        if (mHelper == null) {
-            if (activity != null) {
-                mHelper = new AccountDatabaseHelper(getActivity().getApplicationContext());
-            }
-        }
-
         if (activity != null) {
             List<Account> accountList = mDbInstance.getAccounts();
             boolean foundAccount = false;
