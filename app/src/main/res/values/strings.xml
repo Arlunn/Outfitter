@@ -13,4 +13,7 @@
     <string name="title_feed">Feed</string>
     <string name="title_post">Post</string>
     <string name="title_profile">Profile</string>
+    <string name="closet">Closet</string>
+    <string name="clothes">Clothes</string>
+    <string name="outfits">Outfits</string>
 </resources>

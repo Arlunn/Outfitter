@@ -39,6 +39,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mUpdtePassword.setOnClickListener(this);
         Button mSignOut = (Button) v.findViewById(R.id.signOutButton);
         mSignOut.setOnClickListener(this);
+        Button mCloset = (Button) v.findViewById(R.id.closetButton);
+        mCloset.setOnClickListener(this);
 
 
 
@@ -71,6 +73,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 editor.commit();
 
                 startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+                break;
+            case R.id.closetButton:
+                startActivity(new Intent(getActivity(), ClosetFragmentPager.class));
                 getActivity().finish();
                 break;
         }

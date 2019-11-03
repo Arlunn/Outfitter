@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
 
         loadFragment(new LoginFragment());
+
     }
 
 
