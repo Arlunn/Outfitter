@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -42,6 +46,8 @@ public class ClothesFragment extends Fragment {
     private ImageView imageView;
     private static final int CAMERA_REQUEST = 1888;
     private LinearLayout layout;
+    private final static String USERNAME_PREFERENCE = "name";
+    private String username;
 
 
     @Override
@@ -52,6 +58,18 @@ public class ClothesFragment extends Fragment {
         layout = (LinearLayout)layoutView.findViewById(R.id.linear_layout);
         Button importButton = layoutView.findViewById(R.id.importButton);
         importButton.setOnClickListener(v -> showPictureDialog());
+        username = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(USERNAME_PREFERENCE, "username");
+        List<String> uriStrings = AccountSingleton.get(getActivity().getApplicationContext()).getClothesUris(username);
+        for (String s : uriStrings) {
+            ImageView image = new ImageView(getActivity().getApplicationContext());
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(750, 750);
+            layoutParams.gravity= Gravity.CENTER_VERTICAL;
+            image.setLayoutParams(layoutParams);
+            image.setMaxHeight(750);
+            image.setMaxHeight(750);
+            Picasso.get().load(s).into(image);
+            layout.addView(image);
+        }
         return layoutView;
     }
 
@@ -102,16 +120,24 @@ public class ClothesFragment extends Fragment {
                 if (resultCode == RESULT_OK) {
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     image.setImageBitmap(photo);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] bytes = baos.toByteArray();
+                    AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
                 }
 
                 break;
             case GALLERY_REQUEST:
                 if (resultCode == RESULT_OK) {
                     try {
-                        final Uri imageUri = data.getData();
-                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        Uri imageUri = data.getData();
+                        InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         image.setImageBitmap(selectedImage);
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        byte[] bytes = baos.toByteArray();
+                        AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                         Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);
@@ -120,6 +146,5 @@ public class ClothesFragment extends Fragment {
                 break;
         }
 
-        layout.addView(image);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.outfitter;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,12 +17,16 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, FragmentChangeInterface {
 
+    private final static String USERNAME_PREFERENCE = "name";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String username = settings.getString(USERNAME_PREFERENCE, "username");
+        AccountSingleton.get(this).updateClothesUris(username);
         loadFragment(new FeedFragment());
         /**Passing each menu ID as a set of Ids because each
         menu should be considered as top level destinations.
