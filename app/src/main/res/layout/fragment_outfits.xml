@@ -14,10 +14,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1" >
-
-    </FrameLayout>
+        android:layout_weight="1" />
 
 </LinearLayout>

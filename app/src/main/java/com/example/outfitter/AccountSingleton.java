@@ -108,7 +108,7 @@ public class AccountSingleton {
 
     }
 
-    public List<String> getClothesUris(String username) {
+    public List<String> getClothesUris() {
         return clothesUris;
     }
 

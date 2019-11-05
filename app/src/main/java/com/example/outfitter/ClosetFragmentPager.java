@@ -1,6 +1,7 @@
 package com.example.outfitter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -17,10 +18,15 @@ import androidx.viewpager.widget.ViewPager;
 
 public class ClosetFragmentPager extends AppCompatActivity {
     private static final int ITEMS = 2;
-
+    public static Context contextOfApplication;
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contextOfApplication = getApplicationContext();
         setContentView(R.layout.fragment_closet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

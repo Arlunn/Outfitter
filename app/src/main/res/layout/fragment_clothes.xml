@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/linear_layout"
     android:background="@android:drawable/gallery_thumb"
     android:orientation="vertical" >
 
@@ -21,16 +22,22 @@
         android:layout_marginTop="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select or Capture Image" />
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linear_layout"
-            android:orientation="vertical">
-            <!-- Content here -->
-        </LinearLayout>
-    </ScrollView>
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:foreground="?android:attr/activatedBackgroundIndicator">
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:listSelector="@drawable/list_selector"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+    </FrameLayout>
+
 
 </LinearLayout>
