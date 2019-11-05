@@ -46,7 +46,7 @@ public class OutfitSingleton {
     }
     public void updateOutfitsUris(String username) {
         mDatabase.child(username).child("outfits")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {

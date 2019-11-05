@@ -158,6 +158,7 @@ public class ClothesFragment extends Fragment {
             outfitUris.add(uriStrings.get(i));
         }
         OutfitSingleton.get(ClosetFragmentPager.getContextOfApplication()).addOutfit(outfitUris, username);
+
     }
 
     private void showPictureDialog(){

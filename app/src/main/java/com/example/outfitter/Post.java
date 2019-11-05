@@ -13,26 +13,21 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Post {
 
-    public String uid;
-    public String postid;
-    public int fireCount = 0;
-
-    public ArrayList<String> fires = new ArrayList<>();
-
-    Image front;
-    Image virtualOutfit;
+    public String user;
+    String front;
+    HashMap virtualOutfit;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, Image front, Image virtualOutfit) {
-        this.uid = uid;
-        this.fireCount = 0;
+    public Post(String uid, String front, HashMap<String, String> virtualOutfit) {
+        this.user = uid;
         this.front = front;
         this.virtualOutfit = virtualOutfit;
     }
 
+    /*
     public void Like(String uid){
         if(fires.indexOf(uid) >= 0) {
             unLike(uid);
@@ -51,8 +46,8 @@ public class Post {
             fires.remove(uid);
         }
         return;
-    }
-
+    }*/
+/*
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -63,5 +58,5 @@ public class Post {
         result.put("virtualOutfit",virtualOutfit);
 
         return result;
-    }
+    }*/
 }
