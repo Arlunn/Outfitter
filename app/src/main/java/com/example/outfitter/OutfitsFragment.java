@@ -27,32 +27,25 @@ public class OutfitsFragment extends Fragment {
         View layoutView = inflater.inflate(R.layout.fragment_outfits,
                 container, false);
 
-        FrameLayout fl = layoutView.findViewById(R.id.frame_layout);
+        LinearLayout fl = layoutView.findViewById(R.id.linear_layout);
 
         List<List<String>> outfitsUris = OutfitSingleton.get(ClosetFragmentPager.getContextOfApplication()).getOutfitsUris();
         // create a RelativeLayout
-        RelativeLayout relativeLayout = new RelativeLayout(ClosetFragmentPager.getContextOfApplication());
 
-        // define the RelativeLayout layout parameters.
-        RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.FILL_PARENT,
-                RelativeLayout.LayoutParams.FILL_PARENT);
         for (int i = 0; i < outfitsUris.size(); i++) {
             MyAdapter adapter = new MyAdapter(ClosetFragmentPager.getContextOfApplication(), outfitsUris.get(i));
 
 
             // create a gridview
             GridView gridView= new GridView(ClosetFragmentPager.getContextOfApplication());
+            gridView.setLayoutParams(new GridView.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 375 + (outfitsUris.get(i).size() - 1) / 3 * 375));
 
-            gridView.setLayoutParams(new GridView.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT));
             gridView.setNumColumns(3);
 
             gridView.setAdapter(adapter);
+            fl.addView(gridView);
 
-            // Adding the gridview to the RelativeLayout as a child
-            relativeLayout.addView(gridView);
         }
-        fl.addView(relativeLayout);
        return layoutView;
     }
 

@@ -77,7 +77,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.closetButton:
                 startActivity(new Intent(getActivity(), ClosetFragmentPager.class));
-                getActivity().finish();
                 break;
         }
     }
