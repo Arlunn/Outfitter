@@ -6,14 +6,6 @@
     android:background="@android:drawable/gallery_thumb"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/clothes"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,13 +14,6 @@
         android:layout_marginTop="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select or Capture Image" />
-    <TextView
-        android:id="@+id/outfit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/clothes"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,5 +22,13 @@
         android:layout_marginTop="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select Virtual Outfit" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/postButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Make New Post" />
 
 </LinearLayout>
