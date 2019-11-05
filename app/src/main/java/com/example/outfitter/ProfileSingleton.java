@@ -1,4 +1,4 @@
 package com.example.outfitter;
 
-public class Feed {
+public class ProfileSingleton {
 }
