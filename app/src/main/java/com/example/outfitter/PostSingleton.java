@@ -62,8 +62,8 @@ public class PostSingleton {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        posts = new ArrayList<Post>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            posts = new ArrayList<Post>();
                             HashMap<String, Object> hash = (HashMap<String, Object>) snapshot.getValue();
                             posts.add(new Post((String)hash.get("user"), (String)hash.get("front"), (HashMap) hash.get("virtualOutfit")));
 
