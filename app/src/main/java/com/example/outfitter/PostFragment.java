@@ -72,7 +72,7 @@ public class PostFragment extends Fragment {
 
         postButton = layoutView.findViewById(R.id.postButton);
         //Add the post to the database instead
-        postButton.setOnClickListener(v -> mPostDatabase.addPost(username, imageByte, list));
+        postButton.setOnClickListener(v -> addPost());
 
         return layoutView;
     }
@@ -148,5 +148,14 @@ public class PostFragment extends Fragment {
                 list = data.getStringArrayListExtra("result");
         }
 
+    }
+
+    public void addPost(){
+        if(list != null && imageByte != null){
+            mPostDatabase.addPost(username, imageByte, list);
+            Toast.makeText(getActivity().getApplicationContext(), "Posted Successfully!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getActivity().getApplicationContext(), "Need an Image AND Outfit", Toast.LENGTH_SHORT).show();
+        }
     }
 }

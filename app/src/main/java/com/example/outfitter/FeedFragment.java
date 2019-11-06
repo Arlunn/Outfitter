@@ -78,7 +78,7 @@ public class FeedFragment extends Fragment {
 
             grid.setAdapter(adapter);
 
-            insertPoint.addView(view, j, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+            insertPoint.addView(view, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
 
 
         }
