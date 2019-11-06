@@ -14,8 +14,8 @@ import java.util.Map;
 public class Post {
 
     public String user;
-    String front;
-    HashMap virtualOutfit;
+    public String front;
+    public HashMap<String, String> virtualOutfit;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
@@ -27,36 +27,4 @@ public class Post {
         this.virtualOutfit = virtualOutfit;
     }
 
-    /*
-    public void Like(String uid){
-        if(fires.indexOf(uid) >= 0) {
-            unLike(uid);
-        }else{
-            fireCount++;
-            fires.add(uid);
-        }
-        return;
-    }
-
-    public void unLike(String uid){
-        if(fires.indexOf(uid) < 0) {
-            Like(uid);
-        }else{
-            fireCount--;
-            fires.remove(uid);
-        }
-        return;
-    }*/
-/*
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("fireCount", fireCount);
-        result.put("fires", fires);
-        result.put("front",front);
-        result.put("virtualOutfit",virtualOutfit);
-
-        return result;
-    }*/
 }

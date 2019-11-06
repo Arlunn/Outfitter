@@ -39,6 +39,7 @@ public class PostFragment extends Fragment {
     private static final int CAMERA_REQUEST = 1888;
     private LinearLayout layout;
     private final static String USERNAME_PREFERENCE = "name";
+    private PostSingleton mPostDatabase;
     Button importButton;
     Button selectOutfit;
     Button postButton;
@@ -46,12 +47,16 @@ public class PostFragment extends Fragment {
     List<String> uriStrings;
     ClothesFragment.MyAdapter adapter;
 
+    String imageString;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layoutView = inflater.inflate(R.layout.fragment_post, container,
                 false);
-        //layout = (LinearLayout)layoutView.findViewById(R.id.linear_layout);
+
+        mPostDatabase = PostSingleton.get(getActivity().getApplicationContext());
+
         importButton = layoutView.findViewById(R.id.importButton);
         importButton.setOnClickListener(v -> showPictureDialog());
         username = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(USERNAME_PREFERENCE, "username");
@@ -64,7 +69,7 @@ public class PostFragment extends Fragment {
 
         postButton = layoutView.findViewById(R.id.postButton);
         //Add the post to the database instead
-        postButton.setOnClickListener(v -> showPictureDialog());
+        postButton.setOnClickListener(v -> mPostDatabase.addPost(username, imageString, new ArrayList<String>()));
 
         return layoutView;
     }
@@ -109,33 +114,18 @@ public class PostFragment extends Fragment {
             case CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    adapter.addImage(photo.toString());
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] bytes = baos.toByteArray();
-                    String temp= Base64.encodeToString(bytes, Base64.DEFAULT);
-                    adapter.addImage(temp);
-                    uriStrings.add(temp);
-                    AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
+                    imageString = Base64.encodeToString(bytes, Base64.DEFAULT);
                 }
 
                 break;
             case GALLERY_REQUEST:
                 if (resultCode == RESULT_OK) {
-                    try {
+
                         Uri imageUri = data.getData();
-                        InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        adapter.addImage(imageUri.toString());
-                        uriStrings.add(imageUri.toString());
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        byte[] bytes = baos.toByteArray();
-                        AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);
-                    }
+                        imageString = imageUri.toString();
                 }
                 break;
         }

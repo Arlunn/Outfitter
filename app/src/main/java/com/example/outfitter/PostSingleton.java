@@ -28,8 +28,8 @@ public class PostSingleton {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Post p = (Post) snapshot.getValue();
-                            posts.add(p);
+                           HashMap p = (HashMap)snapshot.getValue();
+                           posts.add(new Post((String)p.get("username"),(String) p.get("front"), (HashMap<String, String>) p.get("virtualOutfit")));
                         }
                     }
                     @Override
@@ -50,8 +50,9 @@ public class PostSingleton {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Post p = (Post) snapshot.getValue();
-                            posts.add(p);
+                            HashMap<String, Object> hash = (HashMap<String, Object>) snapshot.getValue();
+                            posts.add(new Post((String)hash.get("user"), (String)hash.get("front"), (HashMap) hash.get("virtualOutfit")));
+
                         }
                     }
                     @Override
