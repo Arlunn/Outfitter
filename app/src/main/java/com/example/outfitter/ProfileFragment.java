@@ -54,7 +54,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), AccountSettingActivity.class));
             }
         });
-
+        Button mCloset = (Button) v.findViewById(R.id.closet);
+        mCloset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ClosetFragmentPager.class));
+            }
+        });
         return v;
     }
 
