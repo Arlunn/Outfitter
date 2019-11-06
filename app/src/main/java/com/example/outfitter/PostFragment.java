@@ -1,5 +1,6 @@
 package com.example.outfitter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -46,8 +48,9 @@ public class PostFragment extends Fragment {
     private String username;
     List<String> uriStrings;
     ClothesFragment.MyAdapter adapter;
+    public List<String> list;
 
-    String imageString;
+    byte[] imageByte;
 
     @Nullable
     @Override
@@ -65,13 +68,19 @@ public class PostFragment extends Fragment {
 
         selectOutfit = layoutView.findViewById(R.id.selectButton);
         //Select the outfit instead
-        selectOutfit.setOnClickListener(v -> showPictureDialog());
+        selectOutfit.setOnClickListener(v -> selectOutfit());
 
         postButton = layoutView.findViewById(R.id.postButton);
         //Add the post to the database instead
-        postButton.setOnClickListener(v -> mPostDatabase.addPost(username, imageString, new ArrayList<String>()));
+        postButton.setOnClickListener(v -> mPostDatabase.addPost(username, imageByte, list));
 
         return layoutView;
+    }
+    public void setList(List<String> listOutfits) {
+        list = listOutfits;
+    }
+    private void selectOutfit() {
+        startActivityForResult(new Intent(getActivity(), ChooseOutfitActivity.class), 1);
     }
 
     private void showPictureDialog(){
@@ -116,18 +125,27 @@ public class PostFragment extends Fragment {
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] bytes = baos.toByteArray();
-                    imageString = Base64.encodeToString(bytes, Base64.DEFAULT);
+                    imageByte = baos.toByteArray();
                 }
 
                 break;
             case GALLERY_REQUEST:
                 if (resultCode == RESULT_OK) {
-
-                        Uri imageUri = data.getData();
-                        imageString = imageUri.toString();
+                    Uri imageUri = data.getData();
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    imageByte = baos.toByteArray();
                 }
                 break;
+            case 1:
+                list = data.getStringArrayListExtra("result");
         }
 
     }
