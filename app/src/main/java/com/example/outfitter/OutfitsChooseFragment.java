@@ -1,3 +1,4 @@
+package com.example.outfitter;
 
 import android.app.Activity;
 import android.content.Context;
