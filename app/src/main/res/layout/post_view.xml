@@ -18,11 +18,12 @@
         android:layout_height="wrap_content"
         android:contentDescription="hmmmmm"
         />
+
     <GridView
         android:id="@+id/simpleGridView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="3"/>
+        android:numColumns="3" />
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fires"
         android:textSize="17sp"
