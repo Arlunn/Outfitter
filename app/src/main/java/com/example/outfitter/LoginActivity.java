@@ -7,13 +7,17 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,7 +38,14 @@ public class LoginActivity extends AppCompatActivity {
         AccountSingleton.get(getApplicationContext());
         setContentView(R.layout.activity_login);
         fm = getSupportFragmentManager();
-
+        if (Build.VERSION.SDK_INT >= 24) {
+            try {
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         loadFragment(new LoginFragment());
 
     }

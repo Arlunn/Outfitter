@@ -1,6 +1,7 @@
 package com.example.outfitter;
 import android.Manifest;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -45,6 +46,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import static android.app.Activity.RESULT_OK;
@@ -165,16 +167,12 @@ public class ClothesFragment extends Fragment {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getContext());
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
+                "Select photo from gallery" };
         pictureDialog.setItems(pictureDialogItems,
                 (dialog, which) -> {
                     switch (which) {
                         case 0:
                             choosePhotoFromGallery();
-                            break;
-                        case 1:
-                            takePhotoFromCamera();
                             break;
                     }
                 });
@@ -186,11 +184,6 @@ public class ClothesFragment extends Fragment {
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
     }
-    private void takePhotoFromCamera() {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -198,32 +191,18 @@ public class ClothesFragment extends Fragment {
 
         // Adds the view to the layout
         switch (requestCode) {
-            case CAMERA_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    adapter.addImage(photo.toString());
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] bytes = baos.toByteArray();
-                    String temp= Base64.encodeToString(bytes, Base64.DEFAULT);
-                    adapter.addImage(temp);
-                    uriStrings.add(temp);
-                    AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
-                }
-
-                break;
             case GALLERY_REQUEST:
                 if (resultCode == RESULT_OK) {
                     try {
                         Uri imageUri = data.getData();
                         InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
                         Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        adapter.addImage(imageUri.toString());
                         uriStrings.add(imageUri.toString());
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] bytes = baos.toByteArray();
                         AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
+                        adapter.addImage(imageUri.toString());
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                         Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);
@@ -260,7 +239,6 @@ public class ClothesFragment extends Fragment {
         }
 
         public void addImage(String image) {
-            images.add(image);
             this.notifyDataSetChanged();
         }
     }

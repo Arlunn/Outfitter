@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -74,10 +76,21 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
             if (!username.isEmpty() && !password.isEmpty()) {
                 AccountSingleton instance = AccountSingleton.get(activity.getApplicationContext());
                 Account account = new Account(username, password);
-                instance.addAccount(account);
-                Toast.makeText(activity.getApplicationContext(), "Account Created Successfully", Toast.LENGTH_SHORT).show();
-                if (activity != null) {
-                    activity.getSupportFragmentManager().popBackStack();
+                List<Account> accounts = instance.get(activity.getApplicationContext()).getAccounts();
+                boolean found = false;
+                for (Account a : accounts) {
+                    if (a.getUsername() == username) {
+                        Toast.makeText(activity.getApplicationContext(), "Username is taken, try another", Toast.LENGTH_SHORT).show();
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    instance.addAccount(account);
+                    Toast.makeText(activity.getApplicationContext(), "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                    if (activity != null) {
+                        activity.getSupportFragmentManager().popBackStack();
+                    }
                 }
             } else if (username.isEmpty()) {
                 Toast.makeText(activity.getApplicationContext(), "Choose a username", Toast.LENGTH_SHORT).show();
