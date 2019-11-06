@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AccountSingleton.get(getApplicationContext());
+        PostSingleton.get(getApplicationContext());
         setContentView(R.layout.activity_login);
         fm = getSupportFragmentManager();
 
