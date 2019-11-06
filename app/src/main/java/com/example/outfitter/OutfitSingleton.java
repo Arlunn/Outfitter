@@ -49,6 +49,7 @@ public class OutfitSingleton {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        outfitUris = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             List<String> oneOutfitUris = new ArrayList<>();
                             HashMap<String, String> uriMap = (HashMap<String, String>) snapshot.getValue();
