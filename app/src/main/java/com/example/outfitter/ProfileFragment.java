@@ -26,7 +26,10 @@ import androidx.fragment.app.FragmentManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import static com.example.outfitter.LoginFragment.TAG;
 
@@ -42,7 +45,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private LinearLayout layout;
     private int totalPosts = 0;
     private PostSingleton mPostSingleton;
+    private OutfitSingleton mOutfitSingleton;
+
     private List<Post> toInsert;
+    private List<Post> intoProfile = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,28 +85,56 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         //adapter= new MyAdapter(getActivity(),uriStrings);
         //gridView.setAdapter(adapter);
 
+        mOutfitSingleton = OutfitSingleton.get(getActivity().getApplicationContext());
+
         mPostSingleton = PostSingleton.get(getActivity().getApplicationContext());
 
         mPostSingleton.updatePosts();
 
         toInsert = mPostSingleton.getPosts();
-        /**
+
         for(int i =0; i<toInsert.size(); i++){
             Post p = toInsert.get(i);
             String postUsername = p.user;
             if (postUsername.equals(username)) {
                 totalPosts++;
+                intoProfile.add(p);
+
             }
 
-        }**/
-        if (toInsert.size()>=1)
-            Picasso.get().load(toInsert.get(0).front).into((ImageView) v.findViewById(R.id.image1));
-        if(toInsert.size() >=2)
-            Picasso.get().load(toInsert.get(1).front).into((ImageView) v.findViewById(R.id.image2));
-        if (toInsert.size() >=3)
-            Picasso.get().load(toInsert.get(2).front).into((ImageView) v.findViewById(R.id.image3));
-        if (toInsert.size() >=4)
-            Picasso.get().load(toInsert.get(3).front).into((ImageView) v.findViewById(R.id.image4));
+        }
+        TextView numPost = (TextView) v.findViewById(R.id.tvPosts);
+        numPost.setText(String.valueOf(totalPosts));
+        Log.d("IntoProfile size ", String.valueOf(intoProfile.size()));
+        Log.d("toInsert size ", String.valueOf(toInsert.size()));
+
+        TextView numOutfit = (TextView) v.findViewById(R.id.tvOutfits);
+        numOutfit.setText(String.valueOf(OutfitSingleton.get(getActivity().getApplicationContext()).getOutfitsUris().size()));
+
+        if (intoProfile.size()>=1){
+            ImageView imageView1 = (ImageView) v.findViewById(R.id.image1);
+            imageView1.setMaxHeight(150);
+            imageView1.setMaxWidth(150);
+            Picasso.get().load(intoProfile.get(0).front).into(imageView1);
+        }
+        if(intoProfile.size() >=2){
+            ImageView imageView2 = (ImageView) v.findViewById(R.id.image2);
+            imageView2.setMaxHeight(150);
+            imageView2.setMaxWidth(150);
+            Picasso.get().load(intoProfile.get(1).front).into(imageView2);
+        }
+        if (intoProfile.size() >=3){
+            ImageView imageView3 = (ImageView) v.findViewById(R.id.image3);
+            imageView3.setMaxHeight(150);
+            imageView3.setMaxWidth(150);
+            Picasso.get().load(intoProfile.get(2).front).into(imageView3);
+        }
+        if (intoProfile.size() >=4){
+            ImageView imageView4 = (ImageView) v.findViewById(R.id.image4);
+            imageView4.setMaxHeight(150);
+            imageView4.setMaxWidth(150);
+            Picasso.get().load(intoProfile.get(3).front).into(imageView4);
+        }
 
         return v;
     }

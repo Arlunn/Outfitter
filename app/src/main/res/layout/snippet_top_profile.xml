@@ -33,7 +33,7 @@
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
-            android:id="@+id/tvFollowers"
+            android:id="@+id/tvOutfits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -47,18 +47,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textFollowers"
+            android:id="@+id/textOutfits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-8dp"
-            android:text="Outfit"
+            android:text="Outfits"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintLeft_toRightOf="@+id/textPosts"
 
             app:layout_constraintStart_toEndOf="@+id/textPosts"
-            app:layout_constraintTop_toBottomOf="@+id/tvFollowers" />
+            app:layout_constraintTop_toBottomOf="@+id/tvOutfits" />
 
 
 
