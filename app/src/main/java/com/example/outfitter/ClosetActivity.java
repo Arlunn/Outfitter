@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-public class ClosetFragmentPager extends AppCompatActivity {
+public class ClosetActivity extends AppCompatActivity {
     private static final int ITEMS = 2;
     public static Context contextOfApplication;
     public static Context getContextOfApplication()
@@ -27,7 +27,7 @@ public class ClosetFragmentPager extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contextOfApplication = getApplicationContext();
-        setContentView(R.layout.fragment_closet);
+        setContentView(R.layout.activity_closet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);

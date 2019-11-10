@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,15 +27,15 @@ public class OutfitsFragment extends Fragment {
 
         LinearLayout fl = layoutView.findViewById(R.id.linear_layout);
 
-        List<List<String>> outfitsUris = OutfitSingleton.get(ClosetFragmentPager.getContextOfApplication()).getOutfitsUris();
+        List<List<String>> outfitsUris = OutfitSingleton.get(ClosetActivity.getContextOfApplication()).getOutfitsUris();
         // create a RelativeLayout
 
         for (int i = 0; i < outfitsUris.size(); i++) {
-            MyAdapter adapter = new MyAdapter(ClosetFragmentPager.getContextOfApplication(), outfitsUris.get(i));
+            MyAdapter adapter = new MyAdapter(ClosetActivity.getContextOfApplication(), outfitsUris.get(i));
 
 
             // create a gridview
-            GridView gridView= new GridView(ClosetFragmentPager.getContextOfApplication());
+            GridView gridView= new GridView(ClosetActivity.getContextOfApplication());
             gridView.setLayoutParams(new GridView.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 375 + (outfitsUris.get(i).size() - 1) / 3 * 375));
 
             gridView.setNumColumns(3);

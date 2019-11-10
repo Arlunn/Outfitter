@@ -32,7 +32,7 @@ public class OutfitsChooseFragment extends Fragment implements View.OnClickListe
 
         LinearLayout fl = layoutView.findViewById(R.id.linear_layout);
 
-        outfitsUris = OutfitSingleton.get(ClosetFragmentPager.getContextOfApplication()).getOutfitsUris();
+        outfitsUris = OutfitSingleton.get(ClosetActivity.getContextOfApplication()).getOutfitsUris();
         // create a RelativeLayout
 
         for (int i = 0; i < outfitsUris.size(); i++) {

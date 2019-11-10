@@ -1,16 +1,12 @@
 package com.example.outfitter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -19,19 +15,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
-import static com.example.outfitter.LoginFragment.TAG;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private final static String USERNAME_PREFERENCE = "name";
@@ -77,7 +66,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mCloset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ClosetFragmentPager.class));
+                startActivity(new Intent(getActivity(), ClosetActivity.class));
             }
         });
 
