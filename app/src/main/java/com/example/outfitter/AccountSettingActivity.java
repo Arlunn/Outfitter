@@ -9,8 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-public class AccountSettingActivity extends AppCompatActivity implements View.OnClickListener{
+public class AccountSettingActivity extends AppCompatActivity implements View.OnClickListener, FragmentChangeInterface{
     private String username;
 
     private final static String USERNAME_PREFERENCE = "name";
@@ -50,9 +51,6 @@ public class AccountSettingActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(this, LoginActivity.class));
                 this.finish();
                 break;
-            case R.id.updatePasswordButton:
-                ((FragmentChangeInterface) this).loadFragment(new UpdatePasswordFragment());
-                break;
             case R.id.signOutButton:
                 settings = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
                 editor = settings.edit();
@@ -63,5 +61,18 @@ public class AccountSettingActivity extends AppCompatActivity implements View.On
                 this.finish();
                 break;
         }
+    }
+
+    @Override
+    public boolean loadFragment(Fragment fragment){
+        if (fragment != null){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment, LoginFragment.TAG)
+                    .addToBackStack(null)
+                    .commit();
+            return true;
+        }
+
+        return false;
     }
 }

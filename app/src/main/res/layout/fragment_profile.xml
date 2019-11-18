@@ -68,6 +68,15 @@
         android:layout_toRightOf="@id/closet"
         android:layout_marginLeft="1dp"
         android:text="settings"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordChange"
+        android:layout_below="@id/relLayout2"
+
+        android:layout_toLeftOf="@id/closet"
+        android:layout_marginLeft="1dp"
+        android:text="pass"/>
 
     <RelativeLayout
         android:id="@+id/relLayout3"

@@ -20,7 +20,8 @@ import androidx.fragment.app.FragmentManager;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-    public static String TAG = ".com.example.outfitter.LoginFragment";
+
+    public static final String TAG = "t";
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private Button mLoginButton;

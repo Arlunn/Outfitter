@@ -14,82 +14,73 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-public class UpdatePasswordFragment extends Fragment implements View.OnClickListener {
+public class UpdatePasswordFragment extends AppCompatActivity implements View.OnClickListener {
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
     private TextView mUsernameTextView;
     private final static String USERNAME_PREFERENCE = "name";
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_change_password, container, false);
-        Activity activity = getActivity();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_change_password);
 
-        if (activity != null) {
+            mPasswordEditText = findViewById(R.id.newPasswordField);
+            mConfirmPasswordEditText = findViewById(R.id.confirmPasswordField);
 
-            mPasswordEditText = v.findViewById(R.id.newPasswordField);
-            mConfirmPasswordEditText = v.findViewById(R.id.confirmPasswordField);
-
-            String username = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(USERNAME_PREFERENCE, "username");
-            mUsernameTextView = (TextView) v.findViewById(R.id.text_profile);
+            String username = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(USERNAME_PREFERENCE, "username");
+            mUsernameTextView = (TextView) findViewById(R.id.text_profile);
             mUsernameTextView.setText(username);
 
 
-            Button cancelButton = v.findViewById(R.id.cancelButton);
+            Button cancelButton = findViewById(R.id.cancelButton);
             cancelButton.setOnClickListener(this);
-            Button createAccountButton = v.findViewById(R.id.updatePasswordButton);
+            Button createAccountButton = findViewById(R.id.updatePasswordButton);
             createAccountButton.setOnClickListener(this);
 
-        }
 
 
 
-
-        return v;
     }
 
     @Override
     public void onClick(View view) {
-        FragmentActivity activity = getActivity();
 
-        if (activity != null) {
             switch (view.getId()) {
                 case R.id.cancelButton:
-                    if (activity != null) {
-                        activity.getSupportFragmentManager().popBackStack();
-                    }
+                    getSupportFragmentManager().popBackStack();
+
                     break;
                 case R.id.updatePasswordButton:
-                    updatePassword();
+                    this.updatePassword();
                     break;
             }
-        }
+
     }
 
-    private void updatePassword() {
-        FragmentActivity activity = getActivity();
+    public void updatePassword() {
         String password = mPasswordEditText.getText().toString();
         String confirmPassword = mConfirmPasswordEditText.getText().toString();
 
-        if (activity != null) {
             if (password.equals(confirmPassword)) {
-                AccountSingleton instance = AccountSingleton.get(activity.getApplicationContext());
-                String username = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(USERNAME_PREFERENCE, "username");
+                AccountSingleton instance = AccountSingleton.get(getApplicationContext());
+                String username = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(USERNAME_PREFERENCE, "username");
                 Account account = new Account(username, password);
                 instance.updatePassword(account);
-                Toast.makeText(activity.getApplicationContext(), "Update successful", Toast.LENGTH_SHORT).show();
-                if (activity != null) {
-                    activity.getSupportFragmentManager().popBackStack();
-                }
+                Toast.makeText(getApplicationContext(), "Update successful", Toast.LENGTH_SHORT).show();
+
+                    getSupportFragmentManager().popBackStack();
+
             } else {
-                Toast.makeText(activity.getApplicationContext(), "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Passwords do not match!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
 
-}
+

@@ -69,6 +69,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), ClosetActivity.class));
             }
         });
+        Button mPass = (Button) v.findViewById(R.id.passwordChange);
+        mPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UpdatePasswordFragment.class));
+            }
+        });
+
 
         GridView gridView = v.findViewById(R.id.gridview);
         //adapter= new MyAdapter(getActivity(),uriStrings);
