@@ -47,7 +47,12 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        loadFragment(new LoginFragment());
+        if (fm.findFragmentByTag(SignUpFragment.TAG) == null) {
+
+            loadFragment(new LoginFragment());
+        } else {
+            loadFragment(new SignUpFragment());
+        }
 
     }
 

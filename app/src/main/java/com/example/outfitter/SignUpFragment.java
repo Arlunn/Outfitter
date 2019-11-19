@@ -2,6 +2,7 @@ package com.example.outfitter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -22,6 +23,10 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
+    private static String savedUsername = "";
+    private static String savedPassword = "";
+    private static String savedConfirmedPassword = "";
+    public static String TAG = ".com.example.outfitter.ProfileFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +40,9 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
             mPasswordEditText = v.findViewById(R.id.passwordField);
             mConfirmPasswordEditText = v.findViewById(R.id.confirmPasswordField);
 
+            mUsernameEditText.setText(savedUsername);
+            mPasswordEditText.setText(savedPassword);
+            mConfirmPasswordEditText.setText(savedConfirmedPassword);
             Button cancelButton = v.findViewById(R.id.cancelButton);
             cancelButton.setOnClickListener(this);
             Button createAccountButton = v.findViewById(R.id.createAccountButton);
@@ -43,11 +51,15 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
             //int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
 
         }
-
-
-
-
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedUsername =mUsernameEditText.getText().toString();
+        savedPassword = mPasswordEditText.getText().toString();
+        savedConfirmedPassword = mConfirmPasswordEditText.getText().toString();
     }
 
     @Override

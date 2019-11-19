@@ -29,6 +29,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private FragmentManager fm;
     private AccountSingleton mDbInstance;
     private final static String USERNAME_PREFERENCE = "name";
+    private final static String USERNAME_SAVED_KEY = "usernamesavedkey";
+    private final static String PASSWORD_SAVED_KEY = "passwordsavedkey";
+    private static String usernameSaved = "";
+    private static String passwordSaved= "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,8 +46,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mSignUpButton.setOnClickListener(this);
         mUsernameEditText = (EditText) v.findViewById(R.id.usernameField);
         mPasswordEditText = (EditText) v.findViewById(R.id.passwordField);
+
+
+        mUsernameEditText.setText(usernameSaved);
+        mPasswordEditText.setText(passwordSaved);
         // Inflate the layout for this fragment
         return v;
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        usernameSaved =mUsernameEditText.getText().toString();
+        passwordSaved = mPasswordEditText.getText().toString();
+        savedInstanceState.putString(USERNAME_SAVED_KEY, usernameSaved);
+        savedInstanceState.putString(PASSWORD_SAVED_KEY, passwordSaved);
     }
 
 

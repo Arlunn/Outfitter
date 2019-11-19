@@ -9,59 +9,59 @@
         <RelativeLayout
             android:id="@+id/form_layout"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "@string/app_name"
-                android:id = "@+id/appText"
-                android:layout_centerHorizontal = "true"
-                android:textColor = "#ff7aff24"
-                android:textSize = "35dp"
-                android:layout_marginTop = "100dp" />
+            android:layout_height="match_parent">
 
-
-            <TextView
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "@string/username"
-                android:id = "@+id/usernameText"
-                android:layout_centerHorizontal = "true"
-                android:layout_below = "@+id/appText"
-                android:textColor = "#ff7aff24"
-                android:textSize = "16dp"
-                android:layout_marginTop = "50dp" />
-            <EditText
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:id = "@+id/usernameField"
-                android:hint = "Username"
-                android:focusable = "true"
-                android:textColorHighlight = "#ff7eff15"
-                android:textColorHint = "#ffff25e6"
-                android:layout_below = "@+id/usernameText"
-                android:layout_centerHorizontal = "true" />
-
-            <TextView
-                android:id="@+id/passwordText"
+            <Button
+                android:id="@+id/createAccountButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/usernameField"
+                android:layout_below="@+id/confirmPasswordField"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:text="@string/password"
-                android:textColor="#ff7aff24"
-                android:textSize="16dp" />
-            <EditText
+                android:text="@string/create_account" />
+
+
+            <Button
+                android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:layout_below="@+id/createAccountButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/cancel" />
+
+            <EditText
+                android:id="@+id/confirmPasswordField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/confirmPasswordText"
+                android:layout_centerHorizontal="true"
                 android:ems="10"
+                android:hint="Retype Password"
+                android:inputType="textPassword"
+                android:textColorHint="#ffff299f" />
+
+            <EditText
+                android:id="@+id/usernameField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/usernameText"
+                android:layout_centerHorizontal="true"
+                android:focusable="true"
+                android:hint="Username"
+                android:textColorHighlight="#ff7eff15"
+                android:textColorHint="#ffff25e6" />
+
+            <EditText
                 android:id="@+id/passwordField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/passwordText"
-                android:layout_centerHorizontal = "true"
-                android:textColorHint="#ffff299f"
-                android:hint="Password" />
+                android:layout_centerHorizontal="true"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColorHint="#ffff299f" />
 
             <TextView
                 android:id="@+id/confirmPasswordText"
@@ -73,35 +73,39 @@
                 android:text="@string/confirm_password"
                 android:textColor="#ff7aff24"
                 android:textSize="16dp" />
-            <EditText
+
+            <TextView
+                android:id="@+id/appText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/confirmPasswordField"
-                android:layout_below="@+id/confirmPasswordText"
-                android:layout_centerHorizontal = "true"
-                android:textColorHint="#ffff299f"
-                android:hint="Retype Password" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:text="@string/app_name"
+                android:textColor="#ff7aff24"
+                android:textSize="35dp" />
 
 
-            <Button
-                android:id="@+id/createAccountButton"
+            <TextView
+                android:id="@+id/passwordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/confirmPasswordField"
+                android:layout_below="@+id/usernameField"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:text="@string/create_account" />
+                android:text="@string/password"
+                android:textColor="#ff7aff24"
+                android:textSize="16dp" />
 
-            <Button
-                android:id="@+id/cancelButton"
+            <TextView
+                android:id="@+id/usernameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/createAccountButton"
+                android:layout_below="@+id/appText"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="@string/cancel" />
+                android:layout_marginTop="50dp"
+                android:text="@string/username"
+                android:textColor="#ff7aff24"
+                android:textSize="16dp" />
 
         </RelativeLayout>
     </ScrollView>
