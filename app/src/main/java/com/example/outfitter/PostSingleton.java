@@ -42,7 +42,7 @@ public class PostSingleton {
                         posts = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                            HashMap p = (HashMap)snapshot.getValue();
-                           posts.add(new Post((String)p.get("username"),(String) p.get("front"), (HashMap<String, String>) p.get("virtualOutfit")));
+                           posts.add(new Post((String)p.get("user"),(String) p.get("front"), (HashMap<String, String>) p.get("virtualOutfit")));
                         }
                     }
                     @Override

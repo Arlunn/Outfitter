@@ -3,16 +3,19 @@ package com.example.outfitter;
 import android.content.Context;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,18 +36,43 @@ public class FeedFragment extends Fragment {
 
     private PostSingleton mPostSingleton;
 
+    private ViewGroup insertPoint;
+
+    private int feedSize;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
+        feedSize = 10;
+
         LayoutInflater vi = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.fragment_feed, null);
 
-        ViewGroup insertPoint = (ViewGroup) v.findViewById(R.id.post_feed);
+       insertPoint = (ViewGroup) v.findViewById(R.id.post_feed);
+
+        //ScrollView scrollView = (ScrollView) v.findViewById(R.id.scrollView);
+
+        CustomScrollView scrollView = (CustomScrollView) v.findViewById(R.id.scrollView);
+
+        scrollView.setOnBottomReachedListener(new CustomScrollView.OnBottomReachedListener() {
+
+            @Override
+            public void onBottomReached() {
+                // ScrollView Reached bottom
+                if(isEnd()){
+                    Toast.makeText(getActivity().getApplicationContext(), "No more posts to load!", Toast.LENGTH_SHORT).show();
+                }else{
+                    feedSize += 10;
+                    updateFeed(inflater);
+                }
+            }
+        });
 
         mPostSingleton = PostSingleton.get(getActivity().getApplicationContext());
 
-        mPostSingleton.updatePosts();
+        //mPostSingleton.updatePosts();
 
 
 
@@ -52,8 +80,8 @@ public class FeedFragment extends Fragment {
         feed = mPostSingleton.getPosts();
 
 
-        for(int j = 0; j < feed.size(); j++){
-            Post p = feed.get(j);
+        for(int j = 0; j < feedSize; j++){
+            Post p = feed.get(feed.size() - 1 - j);
             View view = inflater.inflate(R.layout.post_view, null);
             String username = p.user;
             TextView user = (TextView) view.findViewById(R.id.username);
@@ -78,12 +106,63 @@ public class FeedFragment extends Fragment {
 
             grid.setAdapter(adapter);
 
-            insertPoint.addView(view, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+            insertPoint.addView(view, insertPoint.getChildCount(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+
 
 
         }
 
         return v;
+    }
+
+    public void updateFeed(LayoutInflater inflater){
+
+        //Virtual Outfit will be an arraylist of multiple image strings -> create a grid view of these images
+        feed = mPostSingleton.getPosts();
+
+
+        for(int j = feedSize - 10; j < feedSize; j++) {
+            if(feed.size() - 1 - j >= 0) {
+                Post p = feed.get(feed.size() - 1 - j);
+                View view = inflater.inflate(R.layout.post_view, null);
+                String username = p.user;
+                TextView user = (TextView) view.findViewById(R.id.username);
+                user.setText(username);
+
+                String img = p.front;
+                ImageView image = (ImageView) view.findViewById(R.id.postImage);
+                Picasso.get().load(img).into(image);
+
+                HashMap<String, String> virtualOutfit = p.virtualOutfit;
+
+                List<String> images = new ArrayList<String>();
+                for (int i = 0; i < virtualOutfit.size(); i++) {
+                    images.add(virtualOutfit.get("image_url" + i));
+                }
+
+                GridView grid = (GridView) view.findViewById(R.id.simpleGridView);
+
+
+                MyAdapter adapter = new MyAdapter(getActivity().getApplicationContext(), images);
+
+
+                grid.setAdapter(adapter);
+
+                insertPoint.addView(view, insertPoint.getChildCount(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+            }
+
+        }
+
+    }
+
+    public boolean isEnd(){
+        boolean isEnd = false;
+        if(insertPoint.getChildCount() == feed.size()){
+            isEnd = true;
+        }
+
+        return isEnd;
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
