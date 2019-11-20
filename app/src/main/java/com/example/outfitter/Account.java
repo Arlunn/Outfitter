@@ -19,6 +19,9 @@ public class Account {
     public void setUsername(String u) {
         username = u;
     }
+    public void setPassword(String u) {
+        password = u;
+    }
 
     public String getUsername() {
         return username;

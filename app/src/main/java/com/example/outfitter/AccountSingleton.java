@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Debug;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,7 @@ public class AccountSingleton {
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
     private FirebaseAuth mAuth;
+    private final String TAG = "AccountSingleton";
 
     List<Account> list = new ArrayList<>();
     List<String> clothesUris = new ArrayList<>();
@@ -58,9 +61,14 @@ public class AccountSingleton {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    String username= data.child("username").getValue().toString();
-                    String password= data.child("password").getValue().toString();
-                    list.add(new Account(username,password));
+                    try {
+                        String username = data.child("username").getValue().toString();
+                        String password = data.child("password").getValue().toString();
+                        String decoded = Encrypter.decrypt(password);
+                        list.add(new Account(username, decoded));
+                    } catch (Exception e) {
+                        Log.d(TAG, "Failed to get account");
+                    }
                 }
             }
             @Override
@@ -88,7 +96,15 @@ public class AccountSingleton {
     }
 
     public void addAccount(Account account) {
-        mDatabase.child(account.getUsername()).setValue(account);
+        String encodedPassword = null;
+        try {
+            encodedPassword = Encrypter.encrypt(account.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        account.setPassword(encodedPassword);
+            mDatabase.child(account.getUsername()).setValue(account);
+
     }
 
     public void updateClothesUris(String username) {
