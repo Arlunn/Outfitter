@@ -2,6 +2,8 @@ package com.example.outfitter;
 
 import android.content.Context;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -44,8 +46,7 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        feedSize = 10;
+        feedSize = 0;
 
         LayoutInflater vi = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.fragment_feed, null);
@@ -77,10 +78,16 @@ public class FeedFragment extends Fragment {
 
 
         //Virtual Outfit will be an arraylist of multiple image strings -> create a grid view of these images
-        feed = mPostSingleton.getPosts();
+
+        if(hasNetworkConnection()) {
+            feed = mPostSingleton.getPosts();
+            feedSize = 10;
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), "Check Network Connection", Toast.LENGTH_SHORT).show();
+        }
 
 
-        for(int j = 0; j < feedSize; j++){
+        for(int j = 0; j < feedSize && j < feed.size(); j++){
             Post p = feed.get(feed.size() - 1 - j);
             View view = inflater.inflate(R.layout.post_view, null);
             String username = p.user;
@@ -122,7 +129,7 @@ public class FeedFragment extends Fragment {
         feed = mPostSingleton.getPosts();
 
 
-        for(int j = feedSize - 10; j < feedSize; j++) {
+        for(int j = feedSize - 10; j < feedSize && j < feed.size(); j++) {
             if(feed.size() - 1 - j >= 0) {
                 Post p = feed.get(feed.size() - 1 - j);
                 View view = inflater.inflate(R.layout.post_view, null);
@@ -163,6 +170,23 @@ public class FeedFragment extends Fragment {
         }
 
         return isEnd;
+    }
+
+    private boolean hasNetworkConnection() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo =
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        boolean isConnected = true;
+        boolean isWifiAvailable = networkInfo.isAvailable();
+        boolean isWifiConnected = networkInfo.isConnected();
+        networkInfo =
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        boolean isMobileAvailable = networkInfo.isAvailable();
+        boolean isMobileConnected = networkInfo.isConnected();
+        isConnected = (isMobileAvailable&&isMobileConnected) ||
+                (isWifiAvailable&&isWifiConnected);
+        return(isConnected);
     }
 
     public class MyAdapter extends ArrayAdapter<String> {
