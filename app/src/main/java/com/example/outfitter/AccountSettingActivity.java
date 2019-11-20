@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -18,10 +22,15 @@ public class AccountSettingActivity extends AppCompatActivity implements View.On
 
     private TextView mUsernameTextView;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_accountsettings);
+
 
         username = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(USERNAME_PREFERENCE, "username");
         mUsernameTextView = (TextView) findViewById(R.id.text_profile);
@@ -30,6 +39,15 @@ public class AccountSettingActivity extends AppCompatActivity implements View.On
         mDeleteAccount.setOnClickListener(this);
         Button mUpdtePassword = (Button) this.findViewById(R.id.updatePasswordButton);
         mUpdtePassword.setOnClickListener(this);
+        /**
+        Button mPass = (Button) v.findViewById(R.id.passwordChange);
+        mPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UpdatePasswordFragment.class));
+            }
+        });
+*       **/
         Button mSignOut = (Button) this.findViewById(R.id.signOutButton);
         mSignOut.setOnClickListener(this);
 
@@ -58,6 +76,11 @@ public class AccountSettingActivity extends AppCompatActivity implements View.On
                 editor.commit();
 
                 startActivity(new Intent(this, LoginActivity.class));
+                this.finish();
+                break;
+
+            case R.id.updatePasswordButton:
+                startActivity(new Intent(this, UpdatePasswordFragment.class));
                 this.finish();
                 break;
         }

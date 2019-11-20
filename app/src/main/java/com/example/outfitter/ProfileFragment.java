@@ -69,6 +69,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), ClosetActivity.class));
             }
         });
+        /*
         Button mPass = (Button) v.findViewById(R.id.passwordChange);
         mPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +77,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UpdatePasswordFragment.class));
             }
         });
-
+        */
 
         GridView gridView = v.findViewById(R.id.gridview);
         //adapter= new MyAdapter(getActivity(),uriStrings);
@@ -191,7 +192,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         List<String> postUri = new ArrayList<>();
 
     }
-
+    public  int getTotalPost(){
+        return totalPosts;
+    }
+    public List<Post> getIntoProfile(){
+        return intoProfile;
+    }
+    public String getUsernameTest(){
+        return username;
+    }
+    public int intoProfileSize(){
+        return intoProfile.size();
+    }
     /**
     public class MyAdapter extends ArrayAdapter<String> {
 

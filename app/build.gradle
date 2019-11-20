@@ -48,5 +48,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.firebase:firebase-client-android:2.5.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'com.21buttons:fragment-test-rule:1.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

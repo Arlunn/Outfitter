@@ -69,7 +69,6 @@
         android:layout_marginLeft="1dp"
         android:text="settings"/>
 
-
     <RelativeLayout
         android:id="@+id/relLayout3"
         android:layout_width="match_parent"
@@ -103,7 +102,7 @@
             android:id="@+id/image3"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_below="@id/image1"
+            android:layout_toRightOf="@id/image2"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
@@ -114,7 +113,6 @@
             android:id="@+id/image4"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_below="@id/image2"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"

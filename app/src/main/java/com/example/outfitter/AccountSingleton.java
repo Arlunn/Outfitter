@@ -97,8 +97,9 @@ public class AccountSingleton {
 
     public void addAccount(Account account) {
         String encodedPassword = null;
+        Encrypter encrypter= new Encrypter();
         try {
-            encodedPassword = Encrypter.encrypt(account.getPassword());
+            encodedPassword = encrypter.encrypt(account.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,7 +11,7 @@ public class Encrypter {
     private static final String ALGORITHM = "AES";
     private static final String KEY = "1Hbfh667adfDEJ78";
 
-    public static String encrypt(String value) throws Exception
+    public  String encrypt(String value) throws Exception
     {
         Key key = generateKey();
         Cipher cipher = Cipher.getInstance(Encrypter.ALGORITHM);
