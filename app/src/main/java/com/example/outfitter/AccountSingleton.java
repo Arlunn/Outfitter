@@ -52,6 +52,8 @@ public class AccountSingleton {
     List<Account> list = new ArrayList<>();
     List<String> clothesUris = new ArrayList<>();
 
+    Encrypter encrypter= new Encrypter();
+
 
     private AccountSingleton(Context context) {
         mAuth = FirebaseAuth.getInstance();
@@ -92,12 +94,15 @@ public class AccountSingleton {
     }
 
     public void updatePassword(Account account) {
-        mDatabase.child(account.getUsername()).child("password").setValue(account.getPassword());
+        try {
+            mDatabase.child(account.getUsername()).child("password").setValue(encrypter.encrypt(account.getPassword()));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void addAccount(Account account) {
         String encodedPassword = null;
-        Encrypter encrypter= new Encrypter();
         try {
             encodedPassword = encrypter.encrypt(account.getPassword());
         } catch (Exception e) {

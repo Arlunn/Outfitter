@@ -3,123 +3,131 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/relLayout1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relLayout2"
-        android:background="@color/white">
-
-        <LinearLayout
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100"
-            android:id="@+id/linLay1">
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/relLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+            </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="25dp"
-                android:layout_weight="25">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relLayout2"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+                    android:id="@+id/linLay1">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="25dp"
+                        android:layout_weight="25">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:src="@drawable/ic_fire"
+                            android:background="@color/white"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="97dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_weight="75">
+
+                        <include layout="@layout/snippet_top_profile" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/closet"
+                android:layout_below="@+id/relLayout2"
+                android:layout_centerHorizontal="true"
+                android:text="closet"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/settings"
+                android:layout_below="@id/relLayout2"
+
+                android:layout_toRightOf="@id/closet"
+                android:layout_marginLeft="1dp"
+                android:text="settings"/>
+
+            <RelativeLayout
+                android:id="@+id/relLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="423dp"
+                android:layout_below="@+id/closet"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp">
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:srcCompat="@tools:sample/avatars"
-                    android:src="@drawable/ic_fire"
-                    android:background="@color/white"/>
+                    android:id="@+id/image1"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_toRightOf="@id/image1"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_toRightOf="@id/image2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_toRightOf="@id/image3"
+                    android:layout_weight="1" />
 
             </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="97dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_weight="75">
-
-                <include layout="@layout/snippet_top_profile" />
-            </RelativeLayout>
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/closet"
-        android:layout_below="@+id/relLayout2"
-        android:layout_centerHorizontal="true"
-        android:text="closet"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings"
-        android:layout_below="@id/relLayout2"
-
-        android:layout_toRightOf="@id/closet"
-        android:layout_marginLeft="1dp"
-        android:text="settings"/>
-
-    <RelativeLayout
-        android:id="@+id/relLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="423dp"
-        android:layout_below="@+id/closet"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp">
-
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/image2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@id/image1"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/image3"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_toRightOf="@id/image2"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/image4"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@id/image3"
-            android:layout_weight="1" />
-
-    </RelativeLayout>
 
 </RelativeLayout>

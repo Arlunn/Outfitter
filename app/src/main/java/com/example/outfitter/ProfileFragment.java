@@ -74,7 +74,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), UpdatePasswordFragment.class));
+                startActivity(new Intent(getActivity(), UpdatePasswordActivity.class));
             }
         });
         */
@@ -154,7 +154,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
          getActivity().finish();
          break;
          case R.id.updatePasswordButton:
-         ((FragmentChangeInterface) getActivity()).loadFragment(new UpdatePasswordFragment());
+         ((FragmentChangeInterface) getActivity()).loadFragment(new UpdatePasswordActivity());
          break;
          case R.id.signOutButton:
          settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());

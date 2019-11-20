@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-public class UpdatePasswordFragment extends AppCompatActivity implements View.OnClickListener {
+public class UpdatePasswordActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
     private TextView mUsernameTextView;
@@ -53,7 +53,7 @@ public class UpdatePasswordFragment extends AppCompatActivity implements View.On
 
             switch (view.getId()) {
                 case R.id.cancelButton:
-                    getSupportFragmentManager().popBackStack();
+                    finish();
 
                     break;
                 case R.id.updatePasswordButton:

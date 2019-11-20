@@ -11,10 +11,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class UpdatePasswordFragmentTest {
+public class UpdatePasswordActivityTest {
     @Rule
-    public ActivityTestRule<UpdatePasswordFragment> mActivityTestRule = new ActivityTestRule<UpdatePasswordFragment>(UpdatePasswordFragment.class);
-    private UpdatePasswordFragment mFragment = null;
+    public ActivityTestRule<UpdatePasswordActivity> mActivityTestRule = new ActivityTestRule<UpdatePasswordActivity>(UpdatePasswordActivity.class);
+    private UpdatePasswordActivity mFragment = null;
     @Before
     public void setUp() throws Exception {
         mFragment = mActivityTestRule.getActivity();
