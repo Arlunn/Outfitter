@@ -98,7 +98,10 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
                         break;
                     }
                 }
-                if (!foundAccount) {
+                if (password.length() < 8 || !password.matches(".*\\d.*") || password.equals(password.toLowerCase()) ||  password.equals(password.toUpperCase())) {
+                    Toast.makeText(activity.getApplicationContext(), "Password must be atleast 8 characters, contain a number, have an uppercase letter, and a lowercase letter", Toast.LENGTH_LONG).show();;
+
+                }  else if (!foundAccount) {
                     instance.addAccount(account);
                     Toast.makeText(activity.getApplicationContext(), "Account Created Successfully", Toast.LENGTH_SHORT).show();
                     if (activity != null) {
@@ -106,6 +109,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
                     }
                 } else {
                     Toast.makeText(activity.getApplicationContext(), "Account already exists", Toast.LENGTH_SHORT).show();;
+
                 }
             } else if (username.isEmpty()) {
                 Toast.makeText(activity.getApplicationContext(), "Choose a username", Toast.LENGTH_SHORT).show();
