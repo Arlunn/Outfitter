@@ -22,12 +22,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
@@ -60,6 +66,24 @@ public class ClothesFragment extends Fragment {
         uriStrings = AccountSingleton.get(getActivity().getApplicationContext()).getClothesUris();
         GridView gridView = layoutView.findViewById(R.id.gridview);
         adapter=new MyAdapter(getActivity(),uriStrings);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase.child(username).child("clothesList")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            HashMap<String, String> uriMap = (HashMap<String, String>) snapshot.getValue();
+                            if (!uriStrings.contains(uriMap.get("image_url"))) {
+                                adapter.addImage(uriMap.get("image_url"));
+                                break;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
         gridView.setAdapter(adapter);
         gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         gridView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -186,7 +210,6 @@ public class ClothesFragment extends Fragment {
                         selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] bytes = baos.toByteArray();
                         AccountSingleton.get(getActivity().getApplicationContext()).addImage(bytes, username);
-                        adapter.addImage(imageUri.toString());
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                         Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);

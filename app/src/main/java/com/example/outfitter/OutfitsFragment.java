@@ -2,6 +2,7 @@ package com.example.outfitter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,22 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
 
 public class OutfitsFragment extends Fragment {
 
+    private final static String USERNAME_PREFERENCE = "name";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,6 +35,8 @@ public class OutfitsFragment extends Fragment {
                 container, false);
 
         LinearLayout fl = layoutView.findViewById(R.id.linear_layout);
+
+        String username = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(USERNAME_PREFERENCE, "username");
 
         List<List<String>> outfitsUris = OutfitSingleton.get(ClosetActivity.getContextOfApplication()).getOutfitsUris();
         // create a RelativeLayout
@@ -44,6 +55,38 @@ public class OutfitsFragment extends Fragment {
             fl.addView(gridView);
 
         }
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase.child(username).child("outfits")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        fl.removeAllViews();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            List<String> oneOutfitUris = new ArrayList<>();
+                            HashMap<String, String> uriMap = (HashMap<String, String>) snapshot.getValue();
+
+                            for (int i = 0; i < uriMap.size(); i++) {
+                                oneOutfitUris.add(uriMap.get("image_url" + i));
+                            }
+                                MyAdapter adapter = new MyAdapter(ClosetActivity.getContextOfApplication(), oneOutfitUris);
+
+
+                                // create a gridview
+                                GridView gridView= new GridView(ClosetActivity.getContextOfApplication());
+                                gridView.setLayoutParams(new GridView.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 375 + (oneOutfitUris.size() - 1) / 3 * 375));
+
+                                gridView.setNumColumns(3);
+
+                                gridView.setAdapter(adapter);
+                                fl.addView(gridView);
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
        return layoutView;
     }
 
