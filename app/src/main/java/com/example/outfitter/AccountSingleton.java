@@ -118,6 +118,7 @@ public class AccountSingleton {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        clothesUris = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             HashMap<String, String> uriMap = (HashMap<String, String>) snapshot.getValue();
                             clothesUris.add(uriMap.get("image_url"));
